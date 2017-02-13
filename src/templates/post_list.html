@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ title }}</h1>
     <div class="col-sm-8 col-sm-offset-2">
+        <h1>{{ title }}</h1>
         {% for obj in object_list  %}
         <div class="row">
             <div class="col-sm-12">
@@ -18,5 +18,20 @@
         </div>
         {# {% cycle "" '<div class="col-sm-12"><hr></div></div><div class="row">'%}#}
         {% endfor %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if object_list.has_previous %}
+                    <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+                </span>
+
+                {% if object_list.has_next %}
+                    <a href="?{{ page_request_var }}={{ object_list.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
     </div>
 {% endblock content %}
