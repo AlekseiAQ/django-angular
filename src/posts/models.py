@@ -25,6 +25,8 @@ class Post(models.Model):
     height_field = models.IntegerField(default=0)
     width_field = models.IntegerField(default=0)
     content = models.TextField()
+    draft = models.BooleanField(default=False)
+    publish = models.DateField(auto_now=False, auto_now_add=False)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
@@ -32,7 +34,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolutt_url(self):
-        return reverse("posts:detail", kwargs={"id": self.id})
+        return reverse("posts:detail", kwargs={"slug": self.slug})
 
     class Meta:
         ordering = ["-timestamp", "-updated"]
