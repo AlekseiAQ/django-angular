@@ -22,7 +22,11 @@
         <p><a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
         Share on Facebook
         </a></p>
-        {{ instance.content|linebreaks }}
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="content-markdown">{{ instance.content }}</div>
+            </div>
+        </div>
         <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div>
     </div>
 {% endblock content %}
