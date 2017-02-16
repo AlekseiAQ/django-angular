@@ -1,11 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="col-sm-8 col-sm-offset-2">
+    <div class="col-sm-6 col-sm-offset-3">
         <h1>{{ title }}</h1>
-        <form class="" action="" method="get">
-            <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search posts">
-            <input type="submit" name="" value="Search">
+        <form class="" action="" method="get" class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="input-group">
+                    <input class="form-control" type="text" name="q" value="{{ request.GET.q }}" placeholder="Search posts">
+                    <span class="input-group-btn">
+                        {# <input class="btn btn-default" type="submit" name="" value="Search">#}
+                        <button class="btn btn-default" type="submit" name="button">Search <i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
         </form>
         {% for obj in object_list  %}
         <div class="row">
