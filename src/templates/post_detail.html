@@ -25,20 +25,19 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="post-detail-item">{{ instance.get_markdown }}</div>
+                <div class="">
+                    <p class="lead">Comments</p>
+                    {% for comment in comments  %}
+                        <blockquote>
+                          <p>{{ comment.content }}</p>
+                          <footer>via {{ comment.user }} on {{ comment.timestamp|timesince }} ago</footer>
+                        </blockquote>
+                        <hr>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-        <div class="">
-            <p class="lead">Comments</p>
-            {% for comment in comments  %}
-            {{ comment.content_object }}
-                <div class="">
-                    {{ comment.content }}
-                    <br>
-                    <small>via {{ comment.user }} on {{ comment.timestamp|timesince }} ago</small>
-                    <hr>
-                </div>
-            {% endfor %}
-        </div>
+
 
     </div>
 {% endblock content %}
