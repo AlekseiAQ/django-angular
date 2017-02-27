@@ -23,7 +23,7 @@ def post_create(request):
         instance.user = request.user
         instance.save()
         messages.success(request, "Successfully Created")
-        return HttpResponseRedirect(instance.get_absolutt_url())
+        return HttpResponseRedirect(instance.get_absolute_url())
     context = {
         "form": form,
     }
@@ -64,7 +64,7 @@ def post_detail(request, slug=None):
             content=content_data,
             parent=parent_obj
         )
-        return HttpResponseRedirect(new_comment.content_object.get_absolutt_url())
+        return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
 
     comments = instance.comments  # Comment.objects.filter_by_instance(instance)
 
@@ -125,7 +125,7 @@ def post_update(request, slug=None):
         messages.success(request,
                          "<a href='#'>Successfully</a> Saved",
                          extra_tags='html_safe')
-        return HttpResponseRedirect(instance.get_absolutt_url())
+        return HttpResponseRedirect(instance.get_absolute_url())
 
     context = {
         "title": instance.title,
