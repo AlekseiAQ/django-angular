@@ -1,7 +1,9 @@
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 
+
 from rest_framework.serializers import (
+    EmailField,
     HyperlinkedIdentityField,
     ModelSerializer,
     SerializerMethodField,
@@ -12,14 +14,39 @@ User = get_user_model()
 
 
 class UserCreateSerializer(ModelSerializer):
+    email = EmailField(label="Email Address")
+    email2 = EmailField(label="Confirm Email")
+
     class Meta:
         model = User
         fields = [
             "username",
             "email",
+            "email2",
             "password",
         ]
         extra_kwargs = {"password": {"write_only": True}}
+
+    # def validate(self, data):
+    #     email = data['email']
+    #     user_qs = User.objects.filter(email=email2)
+    #     if user_qs.exists():
+    #         raise ValidationError("This email already used.")
+    #     return data
+
+    def validate_email2(self, value):
+        data = self.get_initial()
+        email1 = data.get("email")
+        email2 = value
+
+        if email1 != email2:
+            raise ValidationError("Emails must match.")
+
+        user_qs = User.objects.filter(email=email2)
+        if user_qs.exists():
+            raise ValidationError("This email already used.")
+
+        return value
 
     def create(self, validated_data):
         username = validated_data["username"]
