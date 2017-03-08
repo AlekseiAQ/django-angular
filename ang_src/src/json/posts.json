@@ -1,0 +1,43 @@
+[
+    {"title": "Python", "id": 1, "description": "This is a book", "publishDate": "2016-09-11",
+        "comments": [
+            {"id": 1, "text": "Nice book"},
+            {"id": 2, "text":"Another comment" }
+        ], "image": "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg"},
+    {"title": "Python", "id": 2, "description": "This is a book", "publishDate": "2016-09-11",
+        "comments": [
+            {"id": 1, "text": "Nice book"},
+            {"id": 2, "text":"Another comment" }
+        ], "image": "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg"},
+    {"title": "Python", "id": 3, "description": "This is a book", "publishDate": "2016-09-12",
+        "comments": [
+            {"id": 1, "text": "Nice book"},
+            {"id": 2, "text":"Another comment" }
+        ], "image": "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg"},
+    {"title": "Python", "id": 4, "description": "This is a book", "publishDate": "2016-09-13",
+        "comments": [
+            {"id": 1, "text": "Nice book"},
+            {"id": 2, "text":"Another comment" }
+        ], "image": "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg"},
+    {"title": "Python", "id": 5, "description": "This is a book", "publishDate": "2016-09-14",
+        "comments": [
+            {"id": 1, "text": "Nice book"},
+            {"id": 2, "text":"Another comment" }
+        ], "image": "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg"},
+    {"title": "Python", "id": 6, "description": "This is a book", "publishDate": "2016-08-15",
+        "comments": [
+            {"id": 1, "text": "Nice book"},
+            {"id": 2, "text":"Another comment" }
+        ], "image": "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg"},
+    {"title": "Django", "id": 7, "description": "This is a book"},
+    {"title": "HTML5", "id": 8, "description": "This is a book"},
+    {"title": "CSS3", "id": 9, "description": "This is a book"},
+    {"title": "Django", "id": 10, "description": "This is a book"},
+    {"title": "HTML5", "id": 11, "description": "This is a book"},
+    {"title": "Django", "id": 12, "description": "This is a book"},
+    {"title": "HTML5", "id": 13, "description": "This is a book"},
+    {"title": "CSS3", "id": 14, "description": "This is a book"},
+    {"title": "Django", "id": 15, "description": "This is a book"},
+    {"title": "HTML5", "id": 16, "description": "This is a book"},
+    {"title": "CSS3", "id": 17, "description": "This is a book"}
+]
