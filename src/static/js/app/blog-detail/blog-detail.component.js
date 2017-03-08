@@ -2,7 +2,7 @@
 
 angular.module('blogDetail').
     component('blogDetail', {
-        templateUrl: '/templates/blog-detail.html',
+        templateUrl: '/api/templates/blog-detail.html',
         controller: function(Post, $http, $location, $routeParams, $scope){
             Post.query(function(data){
                 $scope.notFound = true
