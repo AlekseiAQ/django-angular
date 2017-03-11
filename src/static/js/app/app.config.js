@@ -25,6 +25,9 @@ angular.module('try').
                 when("/blog/:slug", {
                     template: "<blog-detail></blog-detail>"
                 }).
+                when("/login", {
+                    template: "<login-detail></login-detail>"
+                }).
                 otherwise({
                     template: "Not Found"
                 })

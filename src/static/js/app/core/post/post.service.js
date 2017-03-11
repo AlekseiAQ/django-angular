@@ -10,7 +10,7 @@ angular.module('post').
                 isArray: true,
                 cache: true,
                 transformResponse: function(data, headersGetter, status) {
-                    console.log(data)
+                    // console.log(data)
                     var finalData = angular.fromJson(data)
                     return finalData.results
                 }
