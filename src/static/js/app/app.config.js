@@ -28,6 +28,10 @@ angular.module('try').
                 when("/login", {
                     template: "<login-detail></login-detail>"
                 }).
+                when("/logout", {
+                    // template: "<login-detail></login-detail>"
+                    redirectTo: "/login"
+                }).
                 otherwise({
                     template: "Not Found"
                 })
