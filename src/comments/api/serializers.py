@@ -40,7 +40,7 @@ class CommentCreateSerializer(ModelSerializer):
         SomeModel = model_qs.first().model_class()
         slug = data.get("slug")
         obj_qs = SomeModel.objects.filter(slug=slug)
-        # obj_qs = Post.objects.filter(slug=self.slug)
+        # obj_qs = Post.objects.filter(slug=slug)
         if not obj_qs.exists() or obj_qs.count() != 1:
             raise ValidationError("This is not a slug for this content type.")
         parent_id = data.get("parent_id")

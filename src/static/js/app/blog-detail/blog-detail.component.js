@@ -39,9 +39,12 @@ angular.module('blogDetail').
                 if (token) {
                     var req = {
                         method: "POST",
-                        url: '' + slug + '',
+                        url: 'http://localhost:8000/api/comments/create/',
                         data: {
-                            content: $scope.reply.content
+                            content: $scope.reply.content,
+                            slug: slug,
+                            type: "post",
+
                         },
                         headers: {
                             authorization: "JWT " + token
