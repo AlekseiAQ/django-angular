@@ -12,63 +12,49 @@ angular.module('blogDetail').
                     $scope.comments = data
                 })
             })
-            // Post.query(function(data){
-            //     $scope.notFound = true
-            //     $scope.comments = []
-            //     angular.forEach(data, function(post){
-            //         if (post.id == $routeParams.id){
-            //             $scope.notFound = false
-            //             $scope.post = post
-            //             if (post.comments) {
-            //                 $scope.comments = post.comments
-            //             }
-            //             resetReply()
-            //         }
-            //     })
-            // })
-
 
             $scope.deleteComment = function(comment) {
-                $scope.$apply(
+                comment.$delete({"id": comment.id}, function(data) {
                     $scope.comments.splice(comment, 1)
-                )
-                // someResource.$delete()
+                }, function(e_data) {
+                        console.log(e_data)
+                    })
             }
 
+            $scope.updateReply = function(comment) {
+                Comment.update({
+                    "id": comment.id,
+                    content: $scope.reply.content,
+                    slug: slug,
+                    type: "post"
+                },
+                function(data) {
+                    // $scope.comments.push(data)
+                    // resetReply()
+                    },
+                    function(e_data) {
+                        console.log(e_data)
+                    })
+            }
 
             $scope.addReply = function() {
-                console.log($scope.reply)
-                var token = $cookies.get("token")
-                if (token) {
-                    var req = {
-                        method: "POST",
-                        url: 'http://localhost:8000/api/comments/create/',
-                        data: {
-                            content: $scope.reply.content,
-                            slug: slug,
-                            type: "post",
-
-                        },
-                        headers: {
-                            authorization: "JWT " + token
-                        }
-                    }
-                    var requestAction = $http(req)
-                    requestAction.then(function(response) {
-                        $scope.comments.push($scope.reply)
-                        resetReply()
-                    }, function(e_response) {
-                        console.log("Error. Statuts code: " + e_response.status)
+                Comment.create({
+                    content: $scope.reply.content,
+                    slug: slug,
+                    type: "post"
+                },
+                function(data) {
+                    $scope.comments.push(data)
+                    resetReply()
+                    },
+                    function(e_data) {
+                        console.log(e_data)
                     })
-                    // $scope.comments.push("abc")
-                } else {
-                    console.log("no token")
-                }
             }
 
             function resetReply(){
                 $scope.reply = {
-                    id: $scope.comments.length + 1,
+                    // id: $scope.comments.length + 1,
                     content: "",
                 }
             }
