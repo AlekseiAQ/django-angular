@@ -58,7 +58,7 @@ class CommentCreateSerializer(ModelSerializer):
         parent_id = validated_data.get("parent_id")
 
         if parent_id:
-            parent_qs = Comment.objects.filter(id=parent_id).first()
+            parent_obj = Comment.objects.filter(id=parent_id).first()
 
         user = self.context['user']
         comment = Comment.objects.create_by_model_type(
