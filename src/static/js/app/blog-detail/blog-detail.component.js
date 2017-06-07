@@ -37,6 +37,7 @@ angular.module('blogDetail').
                     })
             }
 
+            $scope.commentOrder = '-timestamp'
             $scope.addNewComment = function() {
                 Comment.create({
                     content: $scope.newComment.content,
