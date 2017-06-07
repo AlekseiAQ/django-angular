@@ -17,7 +17,7 @@ angular.module('core.comment').
         }
 
         var commentGet = {
-            url: url + ":id/",
+            // url: url + ":id/",
             method: "GET",
             params: {"id": "@id"},
             isArray: false,
