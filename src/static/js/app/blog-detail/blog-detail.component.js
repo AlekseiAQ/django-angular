@@ -38,6 +38,7 @@ angular.module('blogDetail').
             }
 
             $scope.commentOrder = '-timestamp'
+            // $scope.newComment = {}
             $scope.addNewComment = function() {
                 Comment.create({
                     content: $scope.newComment.content,
@@ -51,7 +52,8 @@ angular.module('blogDetail').
                     resetNewComment()
                     },
                     function(e_data) {
-                        console.log(e_data)
+                        // console.log(e_data)
+                        $scope.commentError = e_data.data
                     })
             }
 
