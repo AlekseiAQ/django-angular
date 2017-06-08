@@ -23,6 +23,7 @@ angular.module('loginDetail').
                 $scope.user = {
                     username: $cookies.get("username")
                 }
+                window.location.reload()
             }
 
             $scope.doLogin = function(user){
@@ -45,6 +46,7 @@ angular.module('loginDetail').
                         $cookies.put("username", user.username)
                         // message
                         $location.path("/")
+                        window.location.reload()
                 })
             }
             // $http.post()
