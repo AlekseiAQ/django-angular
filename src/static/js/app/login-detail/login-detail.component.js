@@ -12,8 +12,16 @@ angular.module('loginDetail').
             $scope
         ){
             var loginUrl = '/api/auth/token/'
-            $scope.user = {
-            }
+            $scope.loginError = {}
+            $scope.user = {}
+
+            $scope.$watch(function() {
+                if ($scope.user.password) {
+                    $scope.loginError.password = ""
+                } else if ($scope.user.username) {
+                    $scope.loginError.username = ""
+                }
+            })
 
             var tokenExists = $cookies.get("token")
             if (tokenExists) {
@@ -27,27 +35,35 @@ angular.module('loginDetail').
             }
 
             $scope.doLogin = function(user){
-                console.log(user)
-
-                var reqConfig = {
-                    method: "POST",
-                    url: loginUrl,
-                    data: {
-                        username: user.username,
-                        password: user.password
-                    },
-                    headers: {}
+                // console.log(user)
+                if (!user.username) {
+                    $scope.loginError.username = ["This field may not be blank."]
                 }
-                var requestAction = $http(reqConfig)
+                if (!user.password) {
+                    $scope.loginError.password = ["This field is required."]
+                }
+                if (user.username && user.password) {
+                    var reqConfig = {
+                        method: "POST",
+                        url: loginUrl,
+                        data: {
+                            username: user.username,
+                            password: user.password
+                        },
+                        headers: {}
+                    }
+                    var requestAction = $http(reqConfig)
 
-                requestAction.then(function(response){
-                        // console.log(r_data) // token
+                    requestAction.then(function(response){
                         $cookies.put("token", response.data.token)
                         $cookies.put("username", user.username)
                         // message
                         $location.path("/")
                         window.location.reload()
-                })
+                    }).catch(function(response) {
+                        $scope.loginError = response.data
+                    })
+                }
             }
             // $http.post()
         }
