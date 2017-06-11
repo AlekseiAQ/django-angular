@@ -8,8 +8,8 @@
         <span ng-if"post.image">
             <img ng-src="{{ post.image }}" class="img-responsive" alt=""> <br>
         </span>
-        <p>{{ post.content }}</p>
-
+        <p markdown-to-html='post.content'>{{ post.content }}</p>
+        <hr>
         <div class="row" ng-show="comments.length > 0">
             <div class="col-sm-6">
                 <h3>Comments</h3>
