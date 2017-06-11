@@ -11,6 +11,11 @@ from rest_framework.serializers import (
     ValidationError,
 )
 
+from rest_framework_jwt.settings import api_settings
+
+jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+
 User = get_user_model()
 
 
@@ -75,41 +80,32 @@ class UserCreateSerializer(ModelSerializer):
 
 class UserLoginSerializer(ModelSerializer):
     token = CharField(allow_blank=True, read_only=True)
-    username = CharField(required=False, allow_blank=True)
-    email = EmailField(label="Email Address", required=False, allow_blank=True)
+    username = CharField()
 
     class Meta:
         model = User
         fields = [
             "username",
-            "email",
             "password",
             "token",
         ]
         extra_kwargs = {"password": {"write_only": True}}
 
     def validate(self, data):
-        user_obj = None
-        email = data.get("email", None)
-        username = data.get("username", None)
-        password = data["password"]
-        if not email or not username:
-            raise ValidationError("A username or email is required to login.")
-
-        user = User.objects.filter(
-            Q(email=email) |
-            Q(username=username)
+        username = data['username']
+        password = data['password']
+        user_qs = User.objects.filter(
+            Q(username__icontains=username) |
+            Q(email__icontains=username)
         ).distinct()
-        user = user.exclude(email__isnull=True).exclude(email__iexact='')
-        if user.exists() and user.count() == 1:
-            user_obj = user.first()
-        else:
-            raise ValidationError("This username/email is not valid.")
-
-        if user_obj:
-            if not user_obj.check_password(password):
-                raise ValidationError("Incorrect credentials please try again.")
-
-        data["token"] = "SOME RANDOM TOKEN"
-
-        return data
+        if user_qs.exists() and user_qs.count() == 1:
+            user_obj = user_qs.first()
+            password_passes = user_obj.check_password(password)
+            # https
+            if password_passes:
+                data['username'] = user_obj.username
+                payload = jwt_payload_handler(user_obj)
+                token = jwt_encode_handler(payload)
+                data['token'] = token
+                return data
+        raise ValidationError("Invalid credentials")
