@@ -31,13 +31,15 @@ class UserDetailSerializer(ModelSerializer):
 
 
 class UserCreateSerializer(ModelSerializer):
-    email = EmailField(label="Email Address")
-    email2 = EmailField(label="Confirm Email")
+    token = CharField(allow_blank=True, read_only=True)
+    email = EmailField(label="Email Address", write_only=True)
+    email2 = EmailField(label="Confirm Email", write_only=True)
 
     class Meta:
         model = User
         fields = [
             "username",
+            "token",
             "email",
             "email2",
             "password",
@@ -75,6 +77,9 @@ class UserCreateSerializer(ModelSerializer):
         )
         user_obj.set_password(password)
         user_obj.save()
+        payload = jwt_payload_handler(user_obj)
+        token = jwt_encode_handler(payload)
+        validated_data['token'] = token
         return validated_data
 
 
