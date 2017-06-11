@@ -22,6 +22,10 @@ angular.module('blogDetail').
                 }
             }
 
+            if ($cookies.get('token')) {
+                $scope.currentUser = $cookies.get('username')
+            }
+
             function postDataSuccess(data) {
                 $scope.loading = false;
                 $scope.post = data
@@ -46,10 +50,11 @@ angular.module('blogDetail').
 
             $scope.deleteComment = function(comment) {
                 comment.$delete({"id": comment.id}, function(data) {
-                    $scope.comments.splice(comment, 1)
+                    var index = $scope.comments.indexOf(comment)
+                    $scope.comments.splice(index, 1)
                 }, function(e_data) {
                         console.log(e_data)
-                    })
+                })
             }
 
             $scope.updateReply = function(comment) {

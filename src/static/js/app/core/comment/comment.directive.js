@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('core.comment').
-    directive('commentReplyThread', function(Comment) {
+    directive('commentReplyThread', function(Comment, $cookies) {
         return {
             restrict: "E",
             scope: {
@@ -12,7 +12,8 @@ angular.module('core.comment').
                             "<div class=\"panel panel-default\"> " +
                                 "<div class=\"panel-body \">" +
                                     "{{ r.content }} <br/>" +
-                                    "via {{ user }} | <a href='#'>Remove</a>" +
+                                    "<small>via {{ r.user.username }}</small>" +
+                                    "<small ng-show='r.user.username == currentUser'> | <a href='#' confirm-click='Do you want to delete this?' confirmed-click='deleteCommentReply(r, comment)'>Remove</a></small>" +
                                 "</div>" +
                             "</div>" +
                         "</div></div>" +
@@ -30,7 +31,9 @@ angular.module('core.comment').
                             "<input class='btn btn-default btn-sm' type='submit' value='Reply'/>" +
                         "</form>",
             link: function(scope, element, attr) {
-                scope.user = 'Aleksei'
+                if ($cookies.get('token')) {
+                    scope.currentUser = $cookies.get('username')
+                }
                 if (scope.comment) {
                     var commentId = scope.comment.id
                     if (commentId) {
@@ -72,6 +75,15 @@ angular.module('core.comment').
                                 scope.replyError = e_data.data
                         })
                     }
+                }
+                scope.deleteCommentReply = function (reply, parentComment) {
+                    Comment.delete({"id": reply.id}, function(data) {
+                        var index = scope.replies.indexOf(reply)
+                        scope.replies.splice(index, 1)
+                        parentComment.reply_count -= 1
+                    }, function(e_data) {
+                            console.log(e_data)
+                    })
                 }
             }
         }

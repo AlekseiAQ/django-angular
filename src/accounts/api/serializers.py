@@ -24,9 +24,9 @@ class UserDetailSerializer(ModelSerializer):
         model = User
         fields = [
             "username",
-            "email",
-            "first_name",
-            "last_name",
+            # "email",
+            # "first_name",
+            # "last_name",
         ]
 
 
@@ -100,12 +100,14 @@ class UserLoginSerializer(ModelSerializer):
         username = data['username']
         password = data['password']
         user_qs = User.objects.filter(
-            Q(username__icontains=username) |
-            Q(email__icontains=username)
+            Q(username__iexact=username) |
+            Q(email__iexact=username)
         ).distinct()
         if user_qs.exists() and user_qs.count() == 1:
             user_obj = user_qs.first()
             password_passes = user_obj.check_password(password)
+            if not user_obj.is_active:
+                raise ValidationError("This user is inactive.")
             # https
             if password_passes:
                 data['username'] = user_obj.username
