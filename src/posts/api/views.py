@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.utils import timezone
 from rest_framework.filters import (
     SearchFilter,
     OrderingFilter,
@@ -73,7 +74,8 @@ class PostListAPIView(ListAPIView):
 
     def get_queryset(self, *args, **kwargs):
         # queryset_list = super(PostListAPIView, self).get_queryset(*args, **kwargs)
-        queryset_list = Post.objects.all()
+        # queryset_list = Post.objects.all()
+        queryset_list = Post.objects.filter(publish__lte=timezone.now())
         query = self.request.GET.get("q")
         if query:
             queryset_list = queryset_list.filter(
