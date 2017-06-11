@@ -14,6 +14,7 @@
             <input type="password" ng-model="user.password" class="form-control" name="" value="" placeholder="password">
             <label class="control-label" for="loginUsername" ng-if='loginError.password'><span ng-repeat='error in loginError.password'>{{ error }}<br/></span></label>
         </div>
-        <input class="btn btn-default" type="submit" name="" value="Login">
+        <input class="btn btn-default" type="submit" name="" value="Login"><br>
+        <p>Did you need to <a ng-href="/login">Register</a>?</p>
     </form>
 </div>

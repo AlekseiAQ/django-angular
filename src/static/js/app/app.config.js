@@ -32,6 +32,9 @@ angular.module('try').
                     // template: "<login-detail></login-detail>"
                     redirectTo: "/login"
                 }).
+                when("/register", {
+                    template: "<register-detail></register-detail>"
+                }).
                 otherwise({
                     template: "Not Found"
                 })

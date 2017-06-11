@@ -56,7 +56,7 @@ angular.module('loginDetail').
 
                     requestAction.then(function(response){
                         $cookies.put("token", response.data.token)
-                        $cookies.put("username", user.username)
+                        $cookies.put("username", response.data.username)
                         // message
                         $location.path("/")
                         window.location.reload()
