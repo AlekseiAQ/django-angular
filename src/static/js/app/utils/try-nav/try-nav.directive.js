@@ -12,7 +12,7 @@ angular.module("tryNav").
                     // console.log($item)
                     // console.log($model)
                     // console.log($label)
-                    $location.path("/blog/" + $item.id)
+                    $location.path("/blog/" + $item.slug)
                     scope.searchQuery = ""
                 }
                 scope.searchItem = function() {
