@@ -5,7 +5,7 @@ from posts.models import Post
 
 
 class TestPost(TestCase):
-    
+
     def test_get_api_url(self):
         post0 = PostFactory()
         post1 = PostFactory()
